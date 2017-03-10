@@ -5,7 +5,7 @@ class RespFrame extends Component {
   	let props = this.props;
   	let selectedNum = props.selectedNum.map( function (i) {
   		return (
-  			<span>{i}</span>
+  			<span onClick={props.unClickNumber.bind(null, i)}>{i}</span>
   		)
   	});
     return (

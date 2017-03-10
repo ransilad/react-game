@@ -9,6 +9,7 @@ class Game extends Component {
 		super(props);
 		this.state = {selectedNum:[]};
 		this.clickNumber = this.clickNumber.bind(this);
+		this.unClickNumber = this.unClickNumber.bind(this);
 	};
 	clickNumber(clicketNumber){
 		if (this.state.selectedNum.indexOf(clicketNumber) < 0) {
@@ -16,6 +17,15 @@ class Game extends Component {
 				{selectedNum: this.state.selectedNum.concat(clicketNumber)}
 			);
 		}
+	};
+	unClickNumber(clicketNumber){
+		let selectedNum = this.state.selectedNum;
+		let indexOfNumber = selectedNum.indexOf(clicketNumber);
+
+		selectedNum.splice(indexOfNumber, 1);
+		this.setState(
+			{selectedNum: selectedNum}
+		);
 	};
   	render() {
 	    return (
@@ -25,7 +35,7 @@ class Game extends Component {
 	      	<div className="clearfix">
 			  	<StarsFrame />
 			  	<BotonFrame />
-			  	<RespFrame selectedNum={this.state.selectedNum}/>
+			  	<RespFrame selectedNum={this.state.selectedNum} unClickNumber={this.unClickNumber}/>
 	      	</div>
 	      	<NumbersFrame selectedNum={this.state.selectedNum} clickNumber={this.clickNumber}/>
 	      </div>
