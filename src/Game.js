@@ -7,7 +7,13 @@ import NumbersFrame from './NumbersFrame';
 class Game extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {selectedNum:[3,6]};
+		this.state = {selectedNum:[]};
+		this.clickNumber = this.clickNumber.bind(this);
+	};
+	clickNumber(clicketNumber){
+		this.setState(
+			{selectedNum: this.state.selectedNum.concat(clicketNumber)}
+		);
 	};
   	render() {
 	    return (
@@ -19,7 +25,7 @@ class Game extends Component {
 			  	<BotonFrame />
 			  	<RespFrame selectedNum={this.state.selectedNum}/>
 	      	</div>
-	      	<NumbersFrame selectedNum={this.state.selectedNum}/>
+	      	<NumbersFrame selectedNum={this.state.selectedNum} clickNumber={this.clickNumber}/>
 	      </div>
 	    );
   	}

@@ -4,11 +4,12 @@ class NumbersFrame extends Component {
   render() {
   	let numbers = [];
   	let className = '';
-  	let selectedNum =  this.props.selectedNum;
+  	let selectedNum = this.props.selectedNum;
+  	let clickNumber = this.props.clickNumber;
 
   	for (let i = 1; i <= 9; i++) {
   		className = 'number selected-' + (selectedNum.indexOf(i)>=0);
-  		numbers.push(<div className={className}>{i}</div>);
+  		numbers.push(<div className={className} onClick={clickNumber.bind(null, i)}>{i}</div>);
   	}
     return (
       <div id="numbers-frame">
