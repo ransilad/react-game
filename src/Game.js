@@ -11,9 +11,11 @@ class Game extends Component {
 		this.clickNumber = this.clickNumber.bind(this);
 	};
 	clickNumber(clicketNumber){
-		this.setState(
-			{selectedNum: this.state.selectedNum.concat(clicketNumber)}
-		);
+		if (this.state.selectedNum.indexOf(clicketNumber) < 0) {
+			this.setState(
+				{selectedNum: this.state.selectedNum.concat(clicketNumber)}
+			);
+		}
 	};
   	render() {
 	    return (
