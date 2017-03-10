@@ -7,7 +7,7 @@ import NumbersFrame from './NumbersFrame';
 class Game extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {selectedNum:[]};
+		this.state = {numStars: Math.floor(Math.random()*9) + 1, selectedNum:[]};
 		this.clickNumber = this.clickNumber.bind(this);
 		this.unClickNumber = this.unClickNumber.bind(this);
 	};
@@ -28,16 +28,18 @@ class Game extends Component {
 		);
 	};
   	render() {
+  		let selectedNum = this.state.selectedNum;
+  		let numStars = this.state.numStars;
 	    return (
 	      <div id="game">
 	      	<h2>Play nine</h2>
 	      	<hr />
 	      	<div className="clearfix">
-			  	<StarsFrame />
-			  	<BotonFrame />
-			  	<RespFrame selectedNum={this.state.selectedNum} unClickNumber={this.unClickNumber}/>
+			  	<StarsFrame numStars={numStars}/>
+			  	<BotonFrame selectedNum={selectedNum} numStars={numStars}/>
+			  	<RespFrame selectedNum={selectedNum} unClickNumber={this.unClickNumber}/>
 	      	</div>
-	      	<NumbersFrame selectedNum={this.state.selectedNum} clickNumber={this.clickNumber}/>
+	      	<NumbersFrame selectedNum={selectedNum} clickNumber={this.clickNumber}/>
 	      </div>
 	    );
   	}
