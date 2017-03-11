@@ -21,6 +21,7 @@ class Game extends Component {
 		this.aceptAnswer = this.aceptAnswer.bind(this);
 		this.sumOfSelectedNumbers = this.sumOfSelectedNumbers.bind(this);
 		this.reloadNumStars = this.reloadNumStars.bind(this);
+		this.updateStatus = this.updateStatus.bind(this);
 	};
 	clickNumber(clicketNumber){
 		if (this.state.selectedNum.indexOf(clicketNumber) < 0) {
@@ -49,10 +50,17 @@ class Game extends Component {
 	};
 	aceptAnswer(){
 		let usedNumbers = this.state.usedNumbers.concat(this.state.selectedNum);
-		this.setState({selectedNum: [], usedNumbers: usedNumbers, correct: null, numStars: Math.floor(Math.random()*9) + 1});
+		this.setState({selectedNum: [], usedNumbers: usedNumbers, correct: null, numStars: Math.floor(Math.random()*9) + 1}, function(){
+			this.updateStatus();
+		});
 	};
 	reloadNumStars(){
 		this.setState({numStars: Math.floor(Math.random()*9) + 1, correct: null, selectedNum: []});
+	};
+	updateStatus(){
+		if (this.state.usedNumbers.length === 9) {
+			this.setState({ doneStatus: 'Perfecto, juego completado.'});
+		}
 	};
   	render() {
   		let selectedNum = this.state.selectedNum;
@@ -74,7 +82,9 @@ class Game extends Component {
 	      	<hr />
 	      	<div className="clearfix">
 			  	<StarsFrame numStars={numStars}/>
-			  	<BotonFrame selectedNum={selectedNum} numStars={numStars} correct={correct} checkAnswer={this.checkAnswer} aceptAnswer={this.aceptAnswer} reloadNumStars={this.reloadNumStars}/>
+			  	<BotonFrame selectedNum={selectedNum} numStars={numStars} correct={correct} 
+			  		checkAnswer={this.checkAnswer} aceptAnswer={this.aceptAnswer} 
+			  		reloadNumStars={this.reloadNumStars} updateStatus={this.updateStatus}/>
 			  	<RespFrame selectedNum={selectedNum} unClickNumber={this.unClickNumber}/>
 	      	</div>
 	      	{bottomFrame}
