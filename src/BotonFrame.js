@@ -9,7 +9,7 @@ class BotonFrame extends Component {
   	switch(correct){
   		case true:
   			button = (
-				<button className="btn btn-success btn-lg">
+				<button className="btn btn-success btn-lg" onClick={this.props.aceptAnswer}>
 					<span className="glyphicon glyphicon-ok"></span>
 				</button>
   			);

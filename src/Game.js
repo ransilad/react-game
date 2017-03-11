@@ -7,16 +7,22 @@ import NumbersFrame from './NumbersFrame';
 class Game extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {numStars: Math.floor(Math.random()*9) + 1, selectedNum:[], correct: null};
+		this.state = {
+			numStars: Math.floor(Math.random()*9) + 1, 
+			selectedNum:[], 
+			correct: null,
+			usedNumbers: []
+		};
 		this.clickNumber = this.clickNumber.bind(this);
 		this.unClickNumber = this.unClickNumber.bind(this);
 		this.checkAnswer = this.checkAnswer.bind(this);
+		this.aceptAnswer = this.aceptAnswer.bind(this);
 		this.sumOfSelectedNumbers = this.sumOfSelectedNumbers.bind(this);
 	};
 	clickNumber(clicketNumber){
 		if (this.state.selectedNum.indexOf(clicketNumber) < 0) {
 			this.setState(
-				{selectedNum: this.state.selectedNum.concat(clicketNumber)}
+				{selectedNum: this.state.selectedNum.concat(clicketNumber), correct: null}
 			);
 		}
 	};
@@ -26,7 +32,7 @@ class Game extends Component {
 
 		selectedNum.splice(indexOfNumber, 1);
 		this.setState(
-			{selectedNum: selectedNum}
+			{selectedNum: selectedNum, correct: null}
 		);
 	};
 	sumOfSelectedNumbers(){
@@ -38,20 +44,25 @@ class Game extends Component {
 		let correct = (this.state.numStars === this.sumOfSelectedNumbers());
 		this.setState({correct: correct});
 	};
+	aceptAnswer(){
+		let usedNumbers = this.state.usedNumbers.concat(this.state.selectedNum);
+		this.setState({selectedNum: [], usedNumbers: usedNumbers, correct: null, numStars: Math.floor(Math.random()*9) + 1});
+	};
   	render() {
   		let selectedNum = this.state.selectedNum;
   		let numStars = this.state.numStars;
   		let correct = this.state.correct;
+  		let usedNumbers = this.state.usedNumbers;
 	    return (
 	      <div id="game">
 	      	<h2>Play nine</h2>
 	      	<hr />
 	      	<div className="clearfix">
 			  	<StarsFrame numStars={numStars}/>
-			  	<BotonFrame selectedNum={selectedNum} numStars={numStars} correct={correct} checkAnswer={this.checkAnswer}/>
+			  	<BotonFrame selectedNum={selectedNum} numStars={numStars} correct={correct} checkAnswer={this.checkAnswer} aceptAnswer={this.aceptAnswer}/>
 			  	<RespFrame selectedNum={selectedNum} unClickNumber={this.unClickNumber}/>
 	      	</div>
-	      	<NumbersFrame selectedNum={selectedNum} clickNumber={this.clickNumber}/>
+	      	<NumbersFrame selectedNum={selectedNum} clickNumber={this.clickNumber} usedNumbers={usedNumbers}/>
 	      </div>
 	    );
   	}
