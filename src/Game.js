@@ -22,6 +22,7 @@ class Game extends Component {
 		this.sumOfSelectedNumbers = this.sumOfSelectedNumbers.bind(this);
 		this.reloadNumStars = this.reloadNumStars.bind(this);
 		this.updateStatus = this.updateStatus.bind(this);
+		this.resetGame = this.resetGame.bind(this);
 	};
 	clickNumber(clicketNumber){
 		if (this.state.selectedNum.indexOf(clicketNumber) < 0) {
@@ -62,6 +63,15 @@ class Game extends Component {
 			this.setState({ doneStatus: 'Perfecto, juego completado.'});
 		}
 	};
+	resetGame(){
+		this.setState({
+			numStars: Math.floor(Math.random()*9) + 1, 
+			selectedNum:[], 
+			correct: null,
+			usedNumbers: [],
+			doneStatus: null
+		});
+	};
   	render() {
   		let selectedNum = this.state.selectedNum;
   		let numStars = this.state.numStars;
@@ -71,7 +81,7 @@ class Game extends Component {
   		let bottomFrame;
 
   		if (doneStatus) {
-  			bottomFrame = <DoneStatus doneStatus={doneStatus}/>;
+  			bottomFrame = <DoneStatus doneStatus={doneStatus} resetGame={this.resetGame}/>;
   		} else {
   			bottomFrame = <NumbersFrame selectedNum={selectedNum} clickNumber={this.clickNumber} usedNumbers={usedNumbers}/>;
   		}
