@@ -31,7 +31,7 @@ class BotonFrame extends Component {
       <div id="boton-frame">
       	{button}
       	<br />
-      	<button className="btn btn-info btn-lg" onClick={this.props.reloadNumStars}><span className="glyphicon glyphicon-refresh"></span></button>
+      	<button className="btn btn-warning btn-xs" onClick={this.props.reloadNumStars}><span className="glyphicon glyphicon-refresh"></span></button>
       </div>
     );
   }
