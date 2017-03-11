@@ -3,6 +3,7 @@ import StarsFrame from './StarsFrame';
 import BotonFrame from './BotonFrame';
 import RespFrame from './RespFrame';
 import NumbersFrame from './NumbersFrame';
+import DoneStatus from './DoneStatus';
 
 class Game extends Component {
 	constructor(props) {
@@ -11,7 +12,8 @@ class Game extends Component {
 			numStars: Math.floor(Math.random()*9) + 1, 
 			selectedNum:[], 
 			correct: null,
-			usedNumbers: []
+			usedNumbers: [],
+			doneStatus: null
 		};
 		this.clickNumber = this.clickNumber.bind(this);
 		this.unClickNumber = this.unClickNumber.bind(this);
@@ -57,6 +59,15 @@ class Game extends Component {
   		let numStars = this.state.numStars;
   		let correct = this.state.correct;
   		let usedNumbers = this.state.usedNumbers;
+  		let doneStatus = this.state.doneStatus;
+  		let bottomFrame;
+
+  		if (doneStatus) {
+  			bottomFrame = <DoneStatus doneStatus={doneStatus}/>;
+  		} else {
+  			bottomFrame = <NumbersFrame selectedNum={selectedNum} clickNumber={this.clickNumber} usedNumbers={usedNumbers}/>;
+  		}
+
 	    return (
 	      <div id="game">
 	      	<h2>Play nine</h2>
@@ -66,7 +77,7 @@ class Game extends Component {
 			  	<BotonFrame selectedNum={selectedNum} numStars={numStars} correct={correct} checkAnswer={this.checkAnswer} aceptAnswer={this.aceptAnswer} reloadNumStars={this.reloadNumStars}/>
 			  	<RespFrame selectedNum={selectedNum} unClickNumber={this.unClickNumber}/>
 	      	</div>
-	      	<NumbersFrame selectedNum={selectedNum} clickNumber={this.clickNumber} usedNumbers={usedNumbers}/>
+	      	{bottomFrame}
 	      </div>
 	    );
   	}
