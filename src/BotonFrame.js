@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class BotonFrame extends Component {
   render() {
-  	let disabled = (this.props.selectedNum.length == 0);
+  	let disabled = (this.props.selectedNum.length === 0);
   	let button = '';
   	let correct = this.props.correct;
 
@@ -30,6 +30,8 @@ class BotonFrame extends Component {
     return (
       <div id="boton-frame">
       	{button}
+      	<br />
+      	<button className="btn btn-info btn-lg" onClick={this.props.reloadNumStars}><span className="glyphicon glyphicon-refresh"></span></button>
       </div>
     );
   }
